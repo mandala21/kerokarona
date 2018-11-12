@@ -25,6 +25,11 @@ const karonas = [
         id:3,
         name:'Parnaiba - Teresina',
         date:'15/01/1000',
+    },
+    {
+        id:4,
+        name:'Parnaiba - Teresina',
+        date:'15/01/1000',
     }
 ];
 
@@ -66,7 +71,7 @@ export default class HomeLoggedPage extends React.Component {
                 </LinearGradient>
                 <View style={styles.inputGroup}>
                     <TextInputCustom style={styles.inputMargin} placehold="Saindo de..." fun={this.changeFrom}></TextInputCustom>
-                    <TextInputCpintoustom style={styles.inputMargin} placehold="Para..." fun={this.changeTo}></TextInputCustom>
+                    <TextInputCustom style={styles.inputMargin} placehold="Para..." fun={this.changeTo}></TextInputCustom>
                 </View>
                 <View style={styles.btnGroup}>
                     <BtnPrimary text='Criar'></BtnPrimary>
