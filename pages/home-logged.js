@@ -7,7 +7,26 @@ import  LinearGradient  from 'react-native-linear-gradient';
 import TextInputCustom  from '../props/input-email';
 import BtnPrimary from '../props/btn-primay';
 import BtnSecondary from '../props/btn-secondary';
+import RowKarona from '../props/row-karonas'
 
+
+const karonas = [
+    {
+        id: 1,
+        name: 'Teresina - Parnaiba',
+        date: '10/01/1000',
+    },
+    {
+        id: 2,
+        name: 'Teresina - Piracuruca',
+        date: '11/01/1000',
+    },
+    {
+        id:3,
+        name:'Parnaiba - Teresina',
+        date:'15/01/1000',
+    }
+];
 
 export default class HomeLoggedPage extends React.Component {
 
@@ -18,6 +37,8 @@ export default class HomeLoggedPage extends React.Component {
             to:'',
         }
     }
+
+    
 
     changeFrom = (text) => {
         this.setState({
@@ -45,11 +66,21 @@ export default class HomeLoggedPage extends React.Component {
                 </LinearGradient>
                 <View style={styles.inputGroup}>
                     <TextInputCustom style={styles.inputMargin} placehold="Saindo de..." fun={this.changeFrom}></TextInputCustom>
-                    <TextInputCustom style={styles.inputMargin} placehold="Para..." fun={this.changeTo}></TextInputCustom>
+                    <TextInputCpintoustom style={styles.inputMargin} placehold="Para..." fun={this.changeTo}></TextInputCustom>
                 </View>
                 <View style={styles.btnGroup}>
                     <BtnPrimary text='Criar'></BtnPrimary>
                     <BtnSecondary text='Procurar'></BtnSecondary>
+                </View>
+                <Text style={styles.subTitle}>Minhas Karonas</Text>
+                <View style={styles.listKaronas}>
+                    {
+                        karonas.map((u)=>{
+                            return (
+                                <RowKarona key={u.id} date=""></RowKarona>
+                            );
+                        })
+                    }
                 </View>
             </View>
         )
@@ -86,5 +117,16 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         height: 50,
         justifyContent:'space-around',
+    },
+    subTitle: {
+        fontSize: 14,
+        fontWeight:'bold',
+        color: '#000',
+        marginTop:20,
+        marginBottom:20,
+        marginLeft:'5%',
+    },
+    listKaronas:{
+        alignItems:'center',
     }
 });
