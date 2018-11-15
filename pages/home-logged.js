@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PasswordInput from '../props/input-password'
 import BtnWhite from '../props/btn-white';
-import {  StyleSheet, Text, ImageBackground, Image, Alert, View } from 'react-native';
+import {  StyleSheet, Text, ScrollView, Image, Alert, View } from 'react-native';
 const CONF = require('../conf/conf');
 import  LinearGradient  from 'react-native-linear-gradient';
 import TextInputCustom  from '../props/input-email';
@@ -13,22 +13,26 @@ import RowKarona from '../props/row-karonas'
 const karonas = [
     {
         id: 1,
-        name: 'Teresina - Parnaiba',
+        to: 'Teresina ',
+        from:'Parnaiba',
         date: '10/01/1000',
     },
     {
         id: 2,
-        name: 'Teresina - Piracuruca',
+        to: 'Teresina ',
+        from:'Piracuruca',
         date: '11/01/1000',
     },
     {
         id:3,
-        name:'Parnaiba - Teresina',
+        to: 'Piracuruca ',
+        from:'Parnaiba',
         date:'15/01/1000',
     },
     {
         id:4,
-        name:'Parnaiba - Teresina',
+        to: 'Teresina ',
+        from:'Piripiri',
         date:'15/01/1000',
     }
 ];
@@ -59,7 +63,7 @@ export default class HomeLoggedPage extends React.Component {
 
     render() {
         return (
-            <View>
+            <ScrollView>
                 <LinearGradient
                 start={{x: 0.0, y: 0.25}} end={{x: 0.5, y: 1.0}}
                 colors={['#6600EE','#3700B3']}
@@ -82,12 +86,13 @@ export default class HomeLoggedPage extends React.Component {
                     {
                         karonas.map((u)=>{
                             return (
-                                <RowKarona key={u.id} date=""></RowKarona>
+                                <RowKarona key={u.id} date={u.date} 
+                                to={u.to} from={u.from}></RowKarona>
                             );
                         })
                     }
                 </View>
-            </View>
+            </ScrollView>
         )
     }
 }
