@@ -8,6 +8,7 @@ import TextInputCustom  from '../props/input-email';
 import BtnPrimary from '../props/btn-primay';
 import BtnSecondary from '../props/btn-secondary';
 import RowKarona from '../props/row-karonas'
+import AutoCompleteText from '../props/auto-complete'
 
 
 const karonas = [
@@ -37,6 +38,18 @@ const karonas = [
     }
 ];
 
+const citys = [
+    {
+       city:'Teresina - PI',
+    },
+    {
+        city:'Parnaiba - PI',
+    },
+    {
+        city:'Piracuruca - PI',
+    }, 
+];
+
 export default class HomeLoggedPage extends React.Component {
 
     constructor(props){
@@ -53,6 +66,8 @@ export default class HomeLoggedPage extends React.Component {
         this.setState({
             from:text
         });
+        console.log(text);
+        
     }
 
     changeTo = (text) => {
@@ -74,8 +89,8 @@ export default class HomeLoggedPage extends React.Component {
                     </View>
                 </LinearGradient>
                 <View style={styles.inputGroup}>
-                    <TextInputCustom style={styles.inputMargin} placehold="Saindo de..." fun={this.changeFrom}></TextInputCustom>
-                    <TextInputCustom style={styles.inputMargin} placehold="Para..." fun={this.changeTo}></TextInputCustom>
+                    <AutoCompleteText placehold='Saindo de...' _data={citys} fun={this.changeFrom}></AutoCompleteText>
+                    <AutoCompleteText placehold='Para...' _data={citys} fun={this.changeTo}></AutoCompleteText>
                 </View>
                 <View style={styles.btnGroup}>
                     <BtnPrimary text='Criar'></BtnPrimary>
