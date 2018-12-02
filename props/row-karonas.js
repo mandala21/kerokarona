@@ -15,7 +15,7 @@ class RowKarona extends Component {
                     <Text style={styles.textDate}>{this.props.date}</Text>
                 </View>
                 <View style={styles.iconDelete}>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={styles.test}>
                             <Icon name="delete" 
                         color='#B00303'/>
                     </TouchableOpacity>
@@ -68,6 +68,11 @@ const styles = StyleSheet.create({
     lineTrajectory: {
         display: 'flex',
         flexDirection:'row',
+    },
+    test:{
+        flex:1,
+        alignItems:'center',
+        justifyContent:'center',
     }
 });
 

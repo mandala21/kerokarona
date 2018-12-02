@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import PasswordInput from '../props/input-password'
 import BtnWhite from '../props/btn-white';
 import {  StyleSheet, Text, ScrollView, Image, Alert, View } from 'react-native';
-const CONF = require('../conf/conf');
 import  LinearGradient  from 'react-native-linear-gradient';
 import TextInputCustom  from '../props/input-email';
 import BtnPrimary from '../props/btn-primay';
 import BtnSecondary from '../props/btn-secondary';
-import RowKarona from '../props/row-karonas'
-import AutoCompleteText from '../props/auto-complete'
+import RowKarona from '../props/row-karonas';
+import AutoCompleteText from '../props/auto-complete';
+
+const CONF = require('../conf/conf');
+const CITIES =  require('../conf/cities');
 
 
 const karonas = [
@@ -38,29 +40,56 @@ const karonas = [
     }
 ];
 
-const citys = [
-    {
-       city:'Teresina - PI',
-    },
-    {
-        city:'Parnaiba - PI',
-    },
-    {
-        city:'Piracuruca - PI',
-    }, 
-];
-
 export default class HomeLoggedPage extends React.Component {
 
     constructor(props){
         super(props);
+        //init the states
         this.state = {
             from:'',
             to:'',
+            citys:[],
         }
+        //get citys from web service
+        // this.getCitys();
     }
 
-    
+    // getCitys = async () => {
+    //     const {navigation} = this.props;
+    //     const token = navigation.getParam('token');
+        
+    //     //get from server
+    //     try {
+    //         const response = await fetch(CONF.BASE_URL + 'city', {
+    //             method: 'GET',
+    //             headers: {
+    //                 Accept: 'application/json',
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': token,
+    //             },
+    //         });
+    //         //get json of response
+    //         const responseJson = await response.json();
+    //         console.log(responseJson);
+    //         //populate the temp var and set state
+    //         let aux = [];
+    //         responseJson.forEach(el => {
+    //             aux.push(el);
+    //         });
+    //         console.log(aux);
+    //         this.setState({
+    //             citys:aux,
+    //         })
+    //         console.log('====================================');
+    //         console.log(this.state);
+    //         console.log('====================================');
+    //     } catch {
+    //         console.log('====================================');
+    //         console.log('deu erro');
+    //         console.log('====================================');
+    //     }
+        
+    // }
 
     changeFrom = (text) => {
         this.setState({
@@ -76,6 +105,30 @@ export default class HomeLoggedPage extends React.Component {
         });
     }
 
+    _search = async () => {
+        const url = CONF.BASE_URL + `ride/filter?from=${this.state.from}&to=${this.state.to}`;
+        const {navigation} = this.props;
+        const token = navigation.getParam('token');
+        try {
+            const response = await fetch(url,{
+                method:'GET',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': token,
+                },
+            });
+            console.log(1);
+            const responseJson = await response.json();
+            console.log(responseJson);
+            console.log(2);
+        } catch {
+            console.log('erro no servidor');
+        }
+        
+        
+    }
+
     render() {
         return (
             <ScrollView>
@@ -89,12 +142,12 @@ export default class HomeLoggedPage extends React.Component {
                     </View>
                 </LinearGradient>
                 <View style={styles.inputGroup}>
-                    <AutoCompleteText placehold='Saindo de...' _data={citys} fun={this.changeFrom}></AutoCompleteText>
-                    <AutoCompleteText placehold='Para...' _data={citys} fun={this.changeTo}></AutoCompleteText>
+                    <AutoCompleteText placehold='Saindo de...' _data={CITIES} fun={this.changeFrom}></AutoCompleteText>
+                    <AutoCompleteText placehold='Para...' _data={CITIES} fun={this.changeTo}></AutoCompleteText>
                 </View>
                 <View style={styles.btnGroup}>
                     <BtnPrimary text='Criar'></BtnPrimary>
-                    <BtnSecondary text='Procurar'></BtnSecondary>
+                    <BtnSecondary text='Procurar' fun={this._search}></BtnSecondary>
                 </View>
                 <Text style={styles.subTitle}>Minhas Karonas</Text>
                 <View style={styles.listKaronas}>

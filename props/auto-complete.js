@@ -22,6 +22,7 @@ class AutoCompleteText extends Component {
     return elements.filter(film => film.city.search(regex) >= 0);
   }
 
+
   render() {
     const { query } = this.state;
     const elements = this.findFilm(query);
@@ -39,7 +40,11 @@ class AutoCompleteText extends Component {
             onChangeText={text => this.setState({ query: text })}
             placeholder={this.props.placehold}
             renderItem={({ city }) => (
-            <TouchableOpacity onPress={() => this.setState({ query: city })}>
+            <TouchableOpacity onPress={() => {
+                        this.setState({ query: city });
+                        this.props.fun(city);
+                    }
+                }>
                 <Text style={styles.itemText}>
                 {city}
                 </Text>
@@ -78,11 +83,7 @@ const styles = StyleSheet.create({
     autoCompleteContainer:{
         marginBottom:20,
         borderWidth: 0,
-    },
-    autoCompleteInput: {
-        color:'#6600ee',
-    }
-    
+    },   
 });
 
 export default AutoCompleteText;

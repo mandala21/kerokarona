@@ -18,7 +18,9 @@ export default class SplashScreenPage extends React.Component {
       if (value !== null) {
         // We have data!!
         console.log(value);
-        this.props.navigation.navigate('HomeLoggedPage');
+        this.props.navigation.navigate('HomeLoggedPage',{
+          token:value,
+        });
       } else {
         this.props.navigation.navigate('HomePage');
       }

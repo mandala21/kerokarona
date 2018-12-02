@@ -32,7 +32,7 @@ export default class LoginPage extends React.Component {
     }
 
     login = () => {
-        let url = CONF.BASE_URL + 'api/login';
+        let url = CONF.BASE_URL + 'login';
         
         console.log(url);
         //set a url e a configuracao do header e body da reuqest
@@ -76,8 +76,9 @@ export default class LoginPage extends React.Component {
         .catch((error)=>{
             Alert.alert(
                 'Error',
-                'Houve algum error no sistema, por favor entre em contato com o suporte :)'
+                'Houve algum erro ao se conectar com o servidor, por favor entre em contato com o suporte :)'
             );
+            console.log(error.message);
         });
     }
 
