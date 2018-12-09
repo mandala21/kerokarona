@@ -5,6 +5,7 @@ import LoginPage from './pages/login-page';
 import RegisterPage from './pages/register-page';
 import HomeLoggedPage from './pages/home-logged';
 import SplashScreenPage from './pages/splash-screen';
+import ResultPage from './pages/results-page';
 
 
 var initialPage = 'SplashScreen';
@@ -28,7 +29,8 @@ const AppNavigator = createStackNavigator({
   HomePage: { screen: HomePage },
   LoginPage: { screen: LoginPage },
   RegisterPage: {screen: RegisterPage},
-  HomeLoggedPage : {screen: HomeLoggedPage}
+  HomeLoggedPage : {screen: HomeLoggedPage},
+  ResultPage:{screen:ResultPage}
   }, {
     headerMode: 'none',
     navigationOptions: {

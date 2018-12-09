@@ -12,7 +12,7 @@ class RowKarona extends Component {
                         <Image source={require('../assets/car_2.png')} style={styles.imageStyle} />
                         <Text style={styles.textTrajectory}>{this.props.from}</Text>
                     </View>
-                    <Text style={styles.textDate}>{this.props.date}</Text>
+                    <Text style={styles.textDate}>{this.props.date} às {this.props.hour}</Text>
                 </View>
                 <View style={styles.iconDelete}>
                     <TouchableOpacity style={styles.test}>

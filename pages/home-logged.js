@@ -48,11 +48,15 @@ export default class HomeLoggedPage extends React.Component {
         this.state = {
             from:'',
             to:'',
+            karonas:[],
             citys:[],
-        }
+        };
+
+        this.getKaronasHistory();
         //get citys from web service
         // this.getCitys();
     }
+
 
     // getCitys = async () => {
     //     const {navigation} = this.props;
@@ -103,11 +107,38 @@ export default class HomeLoggedPage extends React.Component {
         this.setState({
             to:text
         });
+        console.log(text);
     }
 
     _search = async () => {
         const url = CONF.BASE_URL + `ride/filter?from=${this.state.from}&to=${this.state.to}`;
         const {navigation} = this.props;
+        const token = navigation.getParam('token');
+        //get karonas
+        try {
+            const response = await fetch(url,{
+                method:'GET',
+                headers:{
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': token,
+                },
+            });
+            var responseJson = await response.json();
+            console.log('====================================');
+            console.log(responseJson);
+            console.log('====================================');
+        } catch {
+            console.log('erro no servidor');
+        }
+        //call the result activity
+        navigation.navigate('ResultPage',{karonas:responseJson});
+    }
+
+    getKaronasHistory = async () => {
+        console.log('ola');
+        const url = CONF.BASE_URL + `ride/history`;
+        const { navigation } = this.props;
         const token = navigation.getParam('token');
         try {
             const response = await fetch(url,{
@@ -118,16 +149,28 @@ export default class HomeLoggedPage extends React.Component {
                     'Authorization': token,
                 },
             });
-            console.log(1);
             const responseJson = await response.json();
-            console.log(responseJson);
-            console.log(2);
+            const statusResponse = await response.status;
+            if (statusResponse==200){
+                console.log(responseJson);
+            } else {
+                Alert.alert(
+                    'Error',
+                    'Resposta do servidor invalida!',
+                );
+                this.setState({karonas:[]});
+            }
+            this.setState({
+                karonas:responseJson,
+            });
         } catch {
-            console.log('erro no servidor');
+            Alert.alert(
+                'Error',
+                'Não foi possivel se conectar com o servidor',
+            );
+            this.setState({karonas:[]});
         }
-        
-        
-    }
+    } 
 
     render() {
         return (
@@ -152,9 +195,9 @@ export default class HomeLoggedPage extends React.Component {
                 <Text style={styles.subTitle}>Minhas Karonas</Text>
                 <View style={styles.listKaronas}>
                     {
-                        karonas.map((u)=>{
+                        this.state.karonas.map((u)=>{
                             return (
-                                <RowKarona key={u.id} date={u.date} 
+                                <RowKarona key={u.id} date={u.day} hour={u.hour}
                                 to={u.to} from={u.from}></RowKarona>
                             );
                         })
